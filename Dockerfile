@@ -1,6 +1,6 @@
 # ---- 阶段 1: 构建器 (Builder) ----
 # 使用一个功能完整的镜像，它包含编译工具或可以轻松安装它们
-FROM python:3.12-bullseye as builder
+FROM python:3.12-bullseye AS builder
 
 # 安装编译 uvloop 和 httptools 所需的系统依赖 (C编译器等)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -44,4 +44,4 @@ EXPOSE 5556
 VOLUME /app/Volume
 
 # 设置容器启动命令
-CMD ["python", "main.py"]
+CMD ["python", "main.py", "API"]

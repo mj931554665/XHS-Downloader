@@ -1,0 +1,10 @@
+.git
+.venv
+node_modules
+Volume
+.ruff_cache
+.idea
+.run
+build
+dist
+output
