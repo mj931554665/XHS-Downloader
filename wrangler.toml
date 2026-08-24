@@ -5,7 +5,7 @@ account_id = "9817ebf16851b9f1e0ffe93b91d4f2c8"
 
 [[containers]]
 class_name = "XHSDownloaderContainer"
-image = "./Dockerfile"
+image = "./Dockerfile.cloudflare"
 max_instances = 1
 instance_type = "lite"
 
