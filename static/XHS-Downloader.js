@@ -2,7 +2,7 @@
 // @name           XHS-Downloader
 // @namespace      xhs_downloader
 // @homepage       https://github.com/JoeanAmier/XHS-Downloader
-// @version        2.4.2
+// @version        2.4.3
 // @tag            小红书
 // @tag            RedNote
 // @tag            XiaoHongShu
@@ -656,7 +656,7 @@ Discord Community: https://discord.com/invite/ZYtmgKud9Y
                                })
                 } else {
                     console.error("提取图片预览链接失败", item)
-                    break
+                    return [];
                 }
             }
             return items;
@@ -675,6 +675,7 @@ Discord Community: https://discord.com/invite/ZYtmgKud9Y
                 if (items.length === 0) {
                     console.error("解析图文作品数据失败", note)
                     abnormal(t.imageExtractError)
+                    return;
                 } else if (urls.length > 1 && config.imageCheckboxSwitch) {
                     data.index = await showImageSelectionModal(items, name, server,);
                 }
@@ -738,11 +739,21 @@ Discord Community: https://discord.com/invite/ZYtmgKud9Y
     const extractDownloadLinks = async (server = false) => {
         if (currentUrl.includes(`https://www.${currentSite}.com/explore/`) || currentUrl.includes(
             `https://www.${currentSite}.com/discovery/item/`)) {
-            let note = extractNoteInfo();
-            if (note) {
-                await exploreDeal(note, server,);
-            } else {
-                abnormal(t.extractError);
+            const downloadKey = extractCurrentNoteId();
+            if (activeDownloadKeys.has(downloadKey)) {
+                showToast(t.downloadTips);
+                return;
+            }
+            activeDownloadKeys.add(downloadKey);
+            try {
+                let note = extractNoteInfo();
+                if (note) {
+                    await exploreDeal(note, server,);
+                } else {
+                    abnormal(t.extractError);
+                }
+            } finally {
+                activeDownloadKeys.delete(downloadKey);
             }
         }
     };
@@ -882,6 +893,8 @@ Discord Community: https://discord.com/invite/ZYtmgKud9Y
         const match = currentUrl?.match(/\/(?:explore|discovery\/item)\/([^/?#]+)/);
         return match ? match[1] : "";
     };
+
+    const activeDownloadKeys = new Set();
 
     // 提取作品数据内的作品 ID。
     const getNoteId = (note) => {
