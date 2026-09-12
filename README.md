@@ -21,11 +21,12 @@
 <hr>
 <h1>📑 项目功能</h1>
 <details>
-<summary>项目程序与用户脚本功能清单（点击展开）</summary>
+<summary>项目程序与用户脚本功能清单，快速了解项目能力（点击展开）</summary>
 <ul><b>程序功能</b>
 <li>✅ 采集小红书作品信息</li>
 <li>✅ 提取小红书作品下载地址</li>
 <li>✅ 下载小红书作品文件</li>
+<li>✅ 下载视频作品封面文件</li>
 <li>✅ 下载小红书 livePhoto 文件</li>
 <li>✅ 自动跳过已下载的作品文件</li>
 <li>✅ 作品文件完整性处理机制</li>
@@ -57,11 +58,11 @@
 </details>
 <h1>📸 程序截图</h1>
 <p><a href="https://www.bilibili.com/video/BV1Rv8z62Ebx/">前往 bilibili 观看演示</a>；<a href="https://youtu.be/1WBKuLlOeNw">前往 YouTube 观看演示</a></p>
+<p><b>GUI 界面截图</b></p>
 <img src="static/screenshot/程序运行截图CN1.png" alt="">
 <hr>
+<p><b>TUI 界面截图</b>（模式命令：<code>python .\main.py TUI</code>）</p>
 <img src="static/screenshot/程序运行截图CN2.png" alt="">
-<hr>
-<img src="static/screenshot/程序运行截图CN3.png" alt="">
 <h1>🔗 支持链接</h1>
 <ul>
 <li><code>https://www.xiaohongshu.com/explore/作品ID?xsec_token=XXX</code></li>
@@ -71,8 +72,6 @@
 <br/>
 <p><b>支持单次输入多个作品链接，链接之间使用空格分隔；程序会自动提取有效链接，无需额外处理！</b></p>
 </ul>
-<h1>🪟 关于终端</h1>
-<p>⭐ 推荐使用 <a href="https://learn.microsoft.com/zh-cn/windows/terminal/install">Windows 终端</a> （Windows 11 默认终端）运行程序以便获得最佳显示效果！</p>
 <h1>🥣 使用方法</h1>
 <p>如果仅需下载作品文件，建议选择 <b>程序运行</b> 或 <b>Docker 运行</b>；如果有其他需求，建议选择 <b>源码运行</b>！</p>
 <p>⚠️ Cookie 配置为非强制项；如遇功能异常，建议配置或更新 Cookie 后再次尝试！</p>
@@ -125,7 +124,9 @@
 </ol>
 <p>Docker 运行项目时不支持 <b>命令行调用模式</b>，无法使用 <b>读取剪贴板</b> 与 <b>监听剪贴板</b> 功能，可以正常粘贴内容，其他功能如有异常请反馈！</p>
 <h1>🛠 命令行模式</h1>
-<p>项目支持命令行运行模式，若想要下载图文作品的部分图片，可以使用此模式设置需要下载的图片序号！</p>
+<details>
+<summary>命令行模式说明，适合习惯命令行操作或需要脚本化调用的用户（点击展开）</summary>
+<p>项目支持命令行运行模式，可通过命令行参数直接下载作品文件，也可以设置需要下载的图片序号！</p>
 <p><strong>注意：</strong>未设置 <code>--index</code> 参数时，支持传入多个作品链接，全部链接需要使用引号包围，链接之间使用空格分隔；已设置 <code>--index</code> 参数时，不支持传入多个作品链接，即使传入多个作品链接，程序仅处理首个作品链接！</p>
 <p><code>bool</code> 类型参数支持使用 <code>true</code>、<code>false</code>、<code>1</code>、<code>0</code>、<code>yes</code>、<code>no</code>、<code>on</code> 或 <code>off</code>（不区分大小写）来设置。</p>
 <h2>从浏览器读取 Cookie</h2>
@@ -137,9 +138,12 @@
 <img src="static/screenshot/命令行模式截图CN1.png" alt="">
 <hr>
 <img src="static/screenshot/命令行模式截图CN2.png" alt="">
+</details>
 <h1>🖥 服务器模式</h1>
 <p>服务器模式包含 API 模式和 MCP 模式！</p>
 <h2>API 模式</h2>
+<details>
+<summary>API 模式说明，适合需要调用接口获取作品数据或下载文件的开发者（点击展开）</summary>
 <p><b>启动：</b>运行命令：<code>python .\main.py api</code></p>
 <p><b>关闭：</b>按下 <code>Ctrl</code> + <code>C</code> 关闭服务器</p>
 <p>访问 <code>http://127.0.0.1:5556/docs</code> 或者 <code>http://127.0.0.1:5556/redoc</code>；你会看到自动生成的交互式 API 文档！</p>
@@ -213,7 +217,10 @@ async def example_api():
     response = post(server, json=data, timeout=10)
     print(response.json())
 </pre>
+</details>
 <h2>MCP 模式</h2>
+<details>
+<summary>MCP 模式说明，适合需要启动 MCP 服务接入 AI 助手等工具的开发者（点击展开）</summary>
 <p><b>启动：</b>运行命令：<code>python .\main.py mcp</code></p>
 <p><b>关闭：</b>按下 <code>Ctrl</code> + <code>C</code> 关闭服务器</p>
 <h3>MCP 配置示例</h3>
@@ -223,8 +230,6 @@ async def example_api():
 <p><b>MCP URL：</b><code>http://127.0.0.1:5556/mcp/</code></p>
 <img src="static/screenshot/MCP配置示例.png" alt="MCP配置示例">
 <h3>MCP 调用示例</h3>
-<details>
-<summary>MCP 功能及调用示例（点击展开）</summary>
 <h4><strong>获取小红书作品信息</strong></h4>
 <img src="static/screenshot/MCP获取数据.png" alt="MCP获取数据">
 <hr>
@@ -283,6 +288,8 @@ async def example_api():
 </ul>
 <p><strong>自动滚动页面功能代码已重构，该功能默认关闭！启用该功能可能会被小红书检测为自动化操作，从而导致账号受到风控或封禁风险！</strong></p>
 <h1>💻 二次开发</h1>
+<details>
+<summary>二次开发代码示例，适合基于项目进行二次开发的开发者（点击展开）</summary>
 <p>如果有其他需求，可以根据 <code>example.py</code> 的注释提示进行代码调用或修改！</p>
 <pre>
 async def example():
@@ -305,6 +312,7 @@ async def example():
     folder_mode = False  # 是否将每个作品的文件储存至单独的文件夹
     image_download = True  # 图文、图集作品文件下载开关
     video_download = True  # 视频作品文件下载开关
+    video_cover_download = False  # 视频作品封面文件下载开关
     live_download = False  # 图文动图文件下载开关
     download_record = True  # 是否记录下载成功的作品 ID
     language = "zh_CN"  # 设置程序提示语言
@@ -330,6 +338,7 @@ async def example():
         folder_mode=folder_mode,
         image_download=image_download,
         video_download=video_download,
+        video_cover_download=video_cover_download,
         live_download=live_download,
         download_record=download_record,
         language=language,
@@ -353,13 +362,19 @@ async def example():
             )
         )
 </pre>
+</details>
 <h1>📋 读取剪贴板</h1>
+<details>
+<summary>读取剪贴板平台说明，适合 Windows 以外的用户（Mac / Linux）（点击展开）</summary>
 <p>项目使用 <code>pyperclip</code> 实现读取剪贴板功能，该模块在不同的系统上会有差异。</p>
 <p>在 Windows 上，不需要额外的模块。</p>
 <p>在 Mac 上，该模块使用 pbcopy 和 pbpaste 命令，这些命令应该随操作系统一起提供。</p>
 <p>在 Linux 上，该模块使用 xclip 或 xsel 命令，这些命令应该随操作系统一起提供。否则，请运行 "sudo apt-get install xclip" 或 "sudo apt-get install xsel"（注意：xsel 似乎并不总是有效）</p>
 <p>在其他 Linux 系统上，你需要安装 qtpy 或 PyQT5 模块。</p>
+</details>
 <h1>⚙️ 配置文件</h1>
+<details>
+<summary>配置文件参数说明，适合需要直接修改程序配置参数的用户（点击展开）</summary>
 <p>项目根目录下的 <code>./Volume/settings.json</code> 文件，首次运行自动生成，可以自定义程序运行参数；如果设置了无效的参数值，程序将会使用参数默认值！</p>
 <p>如果您在程序界面修改配置时无法正常交互，可以直接编辑配置文件；如果您的计算机没有合适的程序编辑 JSON 文件，建议使用 <a href="https://www.toolhelper.cn/JSON/JSONFormat">在线工具</a> 编辑配置文件内容，修改后需要重启软件才能生效。</p>
 <table>
@@ -463,6 +478,12 @@ async def example():
 <td align="center">true</td>
 </tr>
 <tr>
+<td align="center">video_cover_download</td>
+<td align="center">bool</td>
+<td align="center">视频作品封面下载开关；封面格式与图文作品文件格式一致</td>
+<td align="center">false</td>
+</tr>
+<tr>
 <td align="center">live_download</td>
 <td align="center">bool</td>
 <td align="center">图文动图文件下载开关</td>
@@ -523,6 +544,7 @@ async def example():
 <p>如果 <code>author_archive</code> 参数设置为 <code>true</code>，程序会把每个作者的作品储存至单独的文件夹；当作者的昵称发生变化时，程序会自动更新已下载作品文件名称中的作者昵称部分！</p>
 <p>除此之外，你还可以通过设置 <code>mapping_data</code> 参数为某个作者设置别名；如果对某个作者设置了别名，程序会使用你设置的作者别名去替代作者昵称！</p>
 </div>
+</details>
 <h1 id="cookie">🌐 Cookie</h1>
 <ol>
 <li>打开浏览器（可选无痕模式启动），访问 <code>https://www.xiaohongshu.com/explore</code></li>
@@ -543,7 +565,7 @@ async def example():
 <p>该功能默认开启，如果关闭该功能，XHS-Downloader 会检查文件是否存在，若文件存在则跳过下载！</p>
 <h2>构建可执行文件指南</h2>
 <details>
-<summary><b>构建可执行文件指南（点击展开）</b></summary>
+<summary><b>构建可执行文件指南，适合希望自行构建可执行文件的用户（点击展开）</b></summary>
 
 本指南将引导您通过 Fork 本仓库并执行 GitHub Actions 自动完成基于最新源码的程序构建和打包！
 
@@ -650,6 +672,8 @@ A: 由于权限限制，您无法直接触发主仓库的 Actions。请通过 Fo
 </table>
 <p>如果您愿意，可以考虑提供资助为 <b>XHS-Downloader</b> 提供额外的支持！</p>
 <h1>🌟 贡献指南</h1>
+<details>
+<summary>贡献指南，适合希望为本项目贡献代码的开发者（点击展开）</summary>
 <p><strong>欢迎对本项目做出贡献！为了保持代码库的整洁、高效和易于维护，请仔细阅读以下指南，以确保您的贡献能够顺利被接受和整合。</strong></p>
 <ul>
 <li>在开始开发前，请从 <code>develop</code> 分支拉取最新的代码，以此为基础进行修改；这有助于避免合并冲突并保证您的改动基于最新的项目状态。</li>
@@ -667,6 +691,7 @@ A: 由于权限限制，您无法直接触发主仓库的 Actions。请通过 Fo
 <li><a href="https://www.contributor-covenant.org/zh-cn/version/2/1/code_of_conduct/">贡献者公约</a></li>
 <li><a href="https://opensource.guide/zh-hans/how-to-contribute/">如何为开源做贡献</a></li>
 </ul>
+</details>
 <h1>✉️ 联系作者</h1>
 <ul>
 <li>作者邮箱：yonglelolu@foxmail.com</li>

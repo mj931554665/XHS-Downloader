@@ -166,6 +166,11 @@ class Setting(Screen):
             Label(),
             Container(
                 Checkbox(
+                    _("视频封面下载开关"),
+                    id="video_cover_download",
+                    value=self.data["video_cover_download"],
+                ),
+                Checkbox(
                     _("脚本服务器开关"),
                     id="script_server",
                     value=self.data["script_server"],
@@ -271,6 +276,7 @@ class Setting(Screen):
                 "language": self.query_one("#language").value,
                 "image_download": self.query_one("#image_download").value,
                 "video_download": self.query_one("#video_download").value,
+                "video_cover_download": self.query_one("#video_cover_download").value,
                 "live_download": self.query_one("#live_download").value,
                 "download_record": self.query_one("#download_record").value,
                 "author_archive": self.query_one("#author_archive").value,

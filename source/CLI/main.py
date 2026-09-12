@@ -169,6 +169,7 @@ class CLI:
                 _("图文作品文件下载格式，支持：PNG、WEBP、JPEG、HEIC、AUTO"),
             ),
             ("--live_download", "-ld", "bool", _("动态图片下载开关")),
+            ("--video_cover_download", "-vcd", "bool", _("视频封面下载开关")),
             (
                 "--video_preference",
                 "-vp",
@@ -311,6 +312,11 @@ class CLI:
 @option(
     "--live_download",
     "-ld",
+    type=bool,
+)
+@option(
+    "--video_cover_download",
+    "-vcd",
     type=bool,
 )
 @option(

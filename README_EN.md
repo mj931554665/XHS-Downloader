@@ -21,11 +21,12 @@
 <hr>
 <h1>📑 Project Features</h1>
 <details>
-<summary>Program Features and User Script Features (Click to Expand)</summary>
+<summary>Program Features and User Script Features, quickly understand project capabilities (Click to Expand)</summary>
 <ul><b>Program Features</b>
 <li>✅ Collect RedNote notes information</li>
 <li>✅ Extract RedNote notes download addresses</li>
 <li>✅ Download RedNote notes files</li>
+<li>✅ Download cover files of video notes</li>
 <li>✅ Download RedNote livePhoto files</li>
 <li>✅ Automatically skip already downloaded notes files</li>
 <li>✅ notes file integrity handling mechanism</li>
@@ -57,11 +58,11 @@
 </details>
 <h1>📸 Program Screenshots</h1>
 <p><a href="https://www.bilibili.com/video/BV1Rv8z62Ebx/">Watch Demo on Bilibili</a>；<a href="https://youtu.be/1WBKuLlOeNw">Watch Demo on YouTube</a></p>
+<p><b>GUI Interface Screenshot</b></p>
 <img src="static/screenshot/程序运行截图EN1.png" alt="">
 <hr>
+<p><b>TUI Interface Screenshot</b> (mode command: <code>python .\main.py TUI</code>)</p>
 <img src="static/screenshot/程序运行截图EN2.png" alt="">
-<hr>
-<img src="static/screenshot/程序运行截图EN3.png" alt="">
 <h1>🔗 Supported Links</h1>
 <ul>
 <li><code>https://www.xiaohongshu.com/explore/NoteID?xsec_token=XXX</code></li>
@@ -71,8 +72,6 @@
 <br/>
 <p><b>Supports entering multiple notes links at once, separated by spaces; the program will automatically extract valid links without additional processing!</b></p>
 </ul>
-<h1>🪟 About the Terminal</h1>
-<p>⭐ It is recommended to use the <a href="https://learn.microsoft.com/en-us/windows/terminal/install">Windows Terminal</a> (default terminal for Windows 11) to run the program for the best display effect!</p>
 <h1>🥣 Usage</h1>
 <p>If you only need to download notes files, it is recommended to choose <b>Program Run</b>; if you have other needs, it is recommended to choose <b>Source Code Run</b>!</p>
 <p>⚠️ Cookies are optional. If issues occur, please try configuring or updating them and retry!</p>
@@ -125,7 +124,9 @@
 </ol>
 <p>When running the project via Docker, the <b>command line call mode</b> is not supported. The <b>clipboard reading</b> and <b>clipboard monitoring</b> functions are unavailable, but pasting content notes fine. Please provide feedback if other features are not functioning properly!</p>
 <h1>🛠 Command Line Mode</h1>
-<p>The project supports command line mode. If you want to download specific images from a text and image notes, you can use this mode to set the image sequence number you want to download!</p>
+<details>
+<summary>Command Line Mode description, suitable for users who prefer terminal operations or need scripted calls (click to expand)</summary>
+<p>The project supports command line mode, allowing you to download note files directly via command line parameters, and you can also set the image sequence number to download!</p>
 <p><strong>Note:</strong> When the <code>--index</code> parameter is not set, multiple notes links can be passed in. All links must be enclosed in quotation marks and separated by spaces. When the <code>--index</code> parameter is set, multiple notes links are not supported. Even if multiple links are passed in, the program will only process the first link!</p>
 <p>The <code>bool</code> type parameters support setting with <code>true</code>, <code>false</code>, <code>1</code>, <code>0</code>, <code>yes</code>, <code>no</code>, <code>on</code> or <code>off</code> (case insensitive).</p>
 <h2>Read Browser Cookies</h2>
@@ -137,9 +138,12 @@
 <img src="static/screenshot/命令行模式截图EN1.png" alt="">
 <hr>
 <img src="static/screenshot/命令行模式截图EN2.png" alt="">
+</details>
 <h1>🖥 Server Mode</h1>
 <p>Server modes include API mode and MCP mode!</p>
 <h2>API Mode</h2>
+<details>
+<summary>API Mode description, suitable for developers who need to call the API to retrieve note data or download files (click to expand)</summary>
 <p><b>Start:</b> Run the command: <code>python .\main.py api</code></p>
 <p><b>Stop:</b> Press <code>Ctrl</code> + <code>C</code> to stop the server</p>
 <p>Open <code>http://127.0.0.1:5556/docs</code> or <code>http://127.0.0.1:5556/redoc</code>; you will see automatically generated interactive API documentation!</p>
@@ -216,7 +220,10 @@ async def example_api():
     response = post(server, json=data, timeout=10)
     print(response.json())
 </pre>
+</details>
 <h2>MCP Mode</h2>
+<details>
+<summary>MCP Mode description, suitable for developers who need to run MCP services to integrate with AI assistants and other tools (click to expand)</summary>
 <p><b>Start:</b> Run the command: <code>python .\main.py mcp</code></p>
 <p><b>Stop:</b> Press <code>Ctrl</code> + <code>C</code> to stop the server</p>
 <h3>MCP Configuration Example</h3>
@@ -226,8 +233,6 @@ async def example_api():
 <p><b>MCP URL:</b><code>http://127.0.0.1:5556/mcp/</code></p>
 <img src="static/screenshot/MCP配置示例.png" alt="MCP Configuration Example">
 <h3>MCP Invocation Example</h3>
-<details>
-<summary>MCP Function and Call Example (Click to Expand)</summary>
 <h4><strong>Retrieve RedNote Notes Information</strong></h4>
 <img src="static/screenshot/MCP获取数据.png" alt="MCP Data Retrieval">
 <hr>
@@ -286,6 +291,8 @@ async def example_api():
 </ul>
 <p><strong>The automatic page scroll feature has been refactored and is turned off by default! Enabling this feature may be detected as automated behavior by RedNote, potentially resulting in account risk control or banning.</strong></p>
 <h1>💻 Secondary Development</h1>
+<details>
+<summary>Secondary development code example, suitable for developers who build on this project (click to expand)</summary>
 <p>If you have other needs, you can perform code calls or modifications based on the comments in <code>example.py</code>!</p>
 <pre>
 async def example():
@@ -308,6 +315,7 @@ async def example():
     folder_mode = False  # Whether to store each note's files in a separate folder
     image_download = True  # Image/album note download switch
     video_download = True  # Video note download switch
+    video_cover_download = False  # Video note cover download switch
     live_download = False  # Image GIF file download switch
     download_record = True  # Whether to record successfully downloaded note IDs
     language = "zh_CN"  # Set program prompt language
@@ -333,6 +341,7 @@ async def example():
         folder_mode=folder_mode,
         image_download=image_download,
         video_download=video_download,
+        video_cover_download=video_cover_download,
         live_download=live_download,
         download_record=download_record,
         language=language,
@@ -356,13 +365,19 @@ async def example():
             )
         )
 </pre>
+</details>
 <h1>📋 Read Clipboard</h1>
+<details>
+<summary>Clipboard reading platform notes, suitable for users outside Windows (Mac / Linux) (click to expand)</summary>
 <p>The project uses <code>pyperclip</code> to implement clipboard reading functionality, which varies across different systems.</p>
 <p>On Windows, no additional modules are needed.</p>
 <p>On Mac, this module makes use of the pbcopy and pbpaste commands, which should come with the os.</p>
 <p>On Linux, this module makes use of the xclip or xsel commands, which should come with the os. Otherwise run "sudo apt-get install xclip" or "sudo apt-get install xsel" (Note: xsel does not always seem to work.)</p>
 <p>Otherwise on Linux, you will need the qtpy or PyQT5 modules installed.</p>
+</details>
 <h1>⚙️ Configuration File</h1>
+<details>
+<summary>Configuration file parameters, suitable for users who need to directly modify program configuration parameters (click to expand)</summary>
 <p>The <code>./Volume/settings.json</code> file in the project's root directory is automatically generated on the first run. You can use it to customize the program's operating parameters. If an invalid parameter value is set, the program will revert to its default value.</p>
 <p>If you are unable to modify settings through the program's interface, you can edit this configuration file directly. If your computer lacks a suitable program for editing JSON files, we recommend using an <a href="https://www.toolhelper.cn/JSON/JSONFormat">online tool</a>. Remember to restart the software after making changes for them to take effect.</p>
 <table>
@@ -466,6 +481,12 @@ async def example():
 <td align="center">true</td>
 </tr>
 <tr>
+<td align="center">video_cover_download</td>
+<td align="center">bool</td>
+<td align="center">Switch for downloading video notes cover files; the cover format is the same as the image_format params</td>
+<td align="center">false</td>
+</tr>
+<tr>
 <td align="center">live_download</td>
 <td align="center">bool</td>
 <td align="center">Switch for downloading animated image files</td>
@@ -545,6 +566,7 @@ async def example():
 <p>When <code>author_archive</code> is set to <code>true</code>, the program will store each author's notes in dedicated folders. If an author's nickname changes, the program automatically updates the nickname portion in existing downloaded filenames!</p>
 <p>Additionally, you can configure author aliases through the <code>mapping_data</code> parameter. When an alias is set, the program will use your custom alias instead of the original nickname in filenames!</p>
 </div>
+</details>
 <h1 id="cookie">🌐 Cookie</h1>
 <ol>
 <li>Open the browser (optional: start in incognito mode) and visit <code>https://www.xiaohongshu.com/explore</code></li>
@@ -565,7 +587,7 @@ async def example():
 <p>This feature is enabled by default. If it is turned off, XHS-Downloader will check if the file exists. If the file exists, it will skip the download!</p>
 <h2>Build of Executable File Guide</h2>
 <details>
-<summary>Build of Executable File Guide (Click to Expand)</summary>
+<summary>Build of Executable File Guide, suitable for users who wish to build executable files on their own (Click to Expand)</summary>
 
 This guide will walk you through forking this repository and executing GitHub Actions to automatically build and package
 the program based on the latest source code!
@@ -678,6 +700,8 @@ repository to execute the build process
 </table>
 <p>If you are willing, you may consider making a donation to provide additional support for <b>XHS-Downloader</b>!</p>
 <h1>🌟 Contribution Guidelines</h1>
+<details>
+<summary>Contribution Guidelines, suitable for developers who wish to contribute code to this project (click to expand)</summary>
 <p><strong>Welcome to contributing to this project! To keep the codebase clean, efficient, and easy to maintain, please read the following guidelines carefully to ensure that your contributions can be accepted and integrated smoothly.</strong></p>
 <ul>
 <li>Before starting development, please pull the latest code from the <code>develop</code> branch as the basis for your modifications; this helps avoid merge conflicts and ensures your changes are based on the latest state of the project.</li>
@@ -694,6 +718,7 @@ repository to execute the build process
 <li><a href="https://www.contributor-covenant.org/version/2/1/code_of_conduct/">Contributor Covenant</a></li>
 <li><a href="https://opensource.guide/how-to-contribute/">How to Contribute to Open Source</a></li>
 </ul>
+</details>
 <h1>✉️ Contact the Author</h1>
 <ul>
 <li>Author's Email：yonglelolu@foxmail.com</li>

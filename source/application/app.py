@@ -84,12 +84,14 @@ def data_cache(function):
         if self.manager.record_data:
             download = data["下载地址"]
             lives = data["动图地址"]
+            cover = data.get("封面地址")
             await function(
                 self,
                 data,
             )
             data["下载地址"] = download
             data["动图地址"] = lives
+            data["封面地址"] = cover
 
     return inner
 
@@ -149,6 +151,7 @@ class XHS:
         image_format="JPEG",
         image_download=True,
         video_download=True,
+        video_cover_download=False,
         live_download=False,
         video_preference="resolution",
         folder_mode=False,
@@ -182,6 +185,7 @@ class XHS:
             image_format,
             image_download,
             video_download,
+            video_cover_download,
             live_download,
             video_preference,
             download_record,
@@ -221,6 +225,7 @@ class XHS:
         container["下载地址"], container["动图地址"] = self.image.get_image_link(
             data, self.manager.image_format
         )
+        container["封面地址"] = None
 
     def __extract_video(
         self,
@@ -234,6 +239,8 @@ class XHS:
         container["动图地址"] = [
             None,
         ]
+        link, _ = self.image.get_image_link(data, self.manager.image_format)
+        container["封面地址"] = link[0] if link else None
 
     async def __download_files(
         self,
@@ -259,6 +266,7 @@ class XHS:
                 filename,
                 container["作品类型"],
                 container["时间戳"],
+                container["封面地址"],
                 progress=progress_callback,
                 task_id=task_id,
             )
@@ -286,6 +294,8 @@ class XHS:
         data["下载地址"] = " ".join(data["下载地址"])
         data["动图地址"] = " ".join(i or "NaN" for i in data["动图地址"])
         data.pop("时间戳", None)
+        # 数据库表结构固定，封面地址不入库，由 data_cache 装饰器在记录后恢复
+        data.pop("封面地址", None)
         await self.data_recorder.add(**data)
 
     async def __add_record(

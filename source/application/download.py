@@ -65,6 +65,7 @@ class Download:
         )
         self.image_download = manager.image_download
         self.video_download = manager.video_download
+        self.video_cover_download = manager.video_cover_download
         self.live_download = manager.live_download
         self.author_archive = manager.author_archive
         self.write_mtime = manager.write_mtime
@@ -78,12 +79,18 @@ class Download:
         filename: str,
         type_: str,
         mtime: int,
+        cover: str | None = None,
         progress: Callable[[dict], None] | None = None,
         task_id: str | None = None,
     ) -> list[Any]:
         if type_ == _("视频"):
             tasks = self.__ready_download_video(
                 urls,
+                path,
+                filename,
+            )
+            tasks += self.__ready_download_cover(
+                cover,
                 path,
                 filename,
             )
@@ -140,6 +147,24 @@ class Download:
         ):
             return []
         return [(urls[0], name, self.video_format)]
+
+    def __ready_download_cover(
+        self,
+        url: str | None,
+        path: Path,
+        name: str,
+    ) -> list:
+        if not self.video_cover_download or not url:
+            return []
+        if not any(
+            self.__check_exists_path(
+                path,
+                f"{name}.{s}",
+            )
+            for s in self.image_format_list
+        ):
+            return [(url, name, self.image_format)]
+        return []
 
     def __ready_download_image(
         self,

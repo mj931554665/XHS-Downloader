@@ -33,7 +33,7 @@ COPY --from=builder /install /usr/local
 # 复制项目代码和相关文件
 COPY locale /app/locale
 COPY source /app/source
-COPY static/XHS-Downloader.tcss /app/static/XHS-Downloader.tcss
+COPY static /app/static
 COPY LICENSE /app/LICENSE
 COPY main.py /app/main.py
 
