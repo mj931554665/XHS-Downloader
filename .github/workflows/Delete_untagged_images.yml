@@ -10,7 +10,19 @@ jobs:
   delete-untagged:
     runs-on: ubuntu-latest
     steps:
+      - name: Check cleanup credentials
+        id: credentials
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          if [ -n "$PAT_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "GHCR cleanup skipped: PAT_TOKEN is not configured for this repository. Cloudflare container deployment does not require this cleanup." >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Delete all containers from package without tags
+        if: steps.credentials.outputs.available == 'true'
         uses: Chizkiyahu/delete-untagged-ghcr-action@v6
         with:
           token: ${{ secrets.PAT_TOKEN }}

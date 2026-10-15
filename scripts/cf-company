@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+export CLOUDFLARE_ACCOUNT_ID="9817ebf16851b9f1e0ffe93b91d4f2c8"
+if ! grep -Eq '^account_id = "9817ebf16851b9f1e0ffe93b91d4f2c8"$' wrangler.toml; then
+  echo "Refusing Cloudflare operation: wrangler.toml must target the company account." >&2
+  exit 1
+fi
+echo "Cloudflare account: nanaimg@proton.me (company)"
+echo "Account ID: $CLOUDFLARE_ACCOUNT_ID"
+echo "Project: xhs-downloader"
+printf 'Operation: %s\n' "$*"
+exec npx --no-install wrangler "$@"
