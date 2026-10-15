@@ -15,8 +15,7 @@
 <img alt="Static Badge" src="https://img.shields.io/badge/Python-≥3.12-b8e994?style=flat-square&logo=python&labelColor=3dc1d3">
 <img alt="Static Badge" src="https://img.shields.io/badge/UserScript-ffec3d?style=flat-square&logo=tampermonkey&logoColor=%2300485B">
 <img src="https://img.shields.io/badge/Sourcery-enabled-884898?style=flat-square&color=1890ff" alt="">
-<img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/joeanamier/xhs-downloader?style=flat-square&color=badc58
-">
+<img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/joeanamier/xhs-downloader?style=flat-square&color=badc58">
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/JoeanAmier/XHS-Downloader/total?style=flat-square&color=ffdd59">
 <br>
 <p>🔥 <b>小红书（XiaoHongShu、RedNote）链接提取/作品采集工具！</b></p>
